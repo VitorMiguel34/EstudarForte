@@ -3,7 +3,7 @@ from rest_framework.viewsets import ModelViewSet
 from .models import Task,Profile
 from .serializers import TaskSerializer,ProfileSerializer
 
-class ProfileViewset(ModelViewSet):
+class ProfileViewSet(ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 

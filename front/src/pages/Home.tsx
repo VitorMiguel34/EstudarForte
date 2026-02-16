@@ -1,11 +1,9 @@
 import React from 'react';
-import Header from '../components/Header'; 
 import { Link } from 'react-router-dom';
 
 export default function Home(): React.JSX.Element {
   return (
     <div className="min-h-screen bg-[#050505] font-sans selection:bg-violet-500/30 selection:text-violet-400">
-      <Header />
 
       <main className="pt-32 pb-16 overflow-hidden">
         

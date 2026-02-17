@@ -1,4 +1,6 @@
-import React,{useState} from 'react'
+import React,{useState , FormEvent} from 'react'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 interface LoginData{
   email: string,
@@ -8,12 +10,41 @@ interface LoginData{
 export default function LoginForm(): React.JSX.Element {
 
   const [loginData, setLoginData] = useState<LoginData>({email:"",password:""})
+  const navigate = useNavigate()
 
   function updateLoginData(e: React.ChangeEvent<HTMLInputElement>){
     setLoginData({
       ...loginData,
       [e.target.name]: e.target.value
     })
+  }
+
+  async function login( e : FormEvent){
+
+    e.preventDefault()
+
+    const url = 'http://127.0.0.1:8000/token/'
+
+    const user : LoginData = {
+      email: loginData.email,
+      password: loginData.password
+    }
+
+    try{
+
+      const response = await axios.post(url, user)
+      const token = response.data.access
+      localStorage.setItem('token', token)
+      //console.log(`O TOKEN : ${token}`)
+      console.log(response)
+      navigate('/tasks')
+
+    } catch(error){
+      alert('Verifique se a senha e o email estão corretos!')
+      console.log(error)
+
+    }
+
   }
 
   return (
@@ -28,7 +59,7 @@ export default function LoginForm(): React.JSX.Element {
           Log in to continue organizing your ideas.
         </p>
 
-        <form className="space-y-5">
+        <form onSubmit={login} className="space-y-5">
           
           <div>
             <label className="text-sm text-zinc-400 block mb-2">

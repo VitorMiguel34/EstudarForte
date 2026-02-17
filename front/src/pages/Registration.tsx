@@ -1,4 +1,6 @@
 import React,{useState} from "react";
+import axios from 'axios'
+import { useNavigate } from "react-router-dom";
 
 interface RegistrationData{
     fullName: string,
@@ -14,15 +16,54 @@ export default function RegistrationPage(): React.JSX.Element {
         password:"password",
         confirmPassword:"Confirm password"
     }
+    // what is this bro lmao
     const registrationFields = Object.keys(registrationFieldsPlaceholders) as (keyof RegistrationData)[]
+
+    //state do form
     const [registrationData, setRegistrationData] = useState<RegistrationData>({
         fullName:"",email:"",password:"",confirmPassword:""
     })
+
+    const navigate = useNavigate()
 
     function updateRegistrationData(e: React.ChangeEvent<HTMLInputElement>){
         setRegistrationData(
             {...registrationData, [e.target.name]: e.target.value}
         )
+    }
+
+    async function register_user(e : React.FormEvent){
+
+        //guuuuy what the gemini sang in this 'registrationFieldsPlaceholders' was kidness
+
+            e.preventDefault()
+
+            if (registrationData.confirmPassword !== registrationData.password){
+                alert('As senhas devem ser iguais!')
+                return
+            }
+
+            const user = {
+                username: registrationData.fullName,
+                email : registrationData.email,
+                password : registrationData.password,
+            }
+
+            const url = 'http://127.0.0.1:8000/users/register/'
+
+            try{
+                
+                const response = await axios.post(url, user)
+                console.log(response)
+                navigate('/login')
+
+            }catch(error){
+
+                console.log('Erro ao cadastrar usuário')
+                console.log(error)
+
+            }
+
     }
 
     return (
@@ -31,7 +72,7 @@ export default function RegistrationPage(): React.JSX.Element {
                 <h2 className="text-3xl font-extrabold text-center mb-2 text-white">Create Account</h2>
                 <p className="text-center text-gray-400 mb-8">Sign up to start organizing your ideas.</p>
 
-                <form className="space-y-5">
+                <form onSubmit={register_user} className="space-y-5">
                 {registrationFields.map((field,idx) => (
                     <input
                     key={idx}

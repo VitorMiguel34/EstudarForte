@@ -1,0 +1,8 @@
+routes of the drf:
+
+/token/ (obter token)
+/token/refresh/ (refresh token)
+/admin/
+/chatbot/
+/users/tasks/ (rota de post das tasks)
+/users/user/ (criar usuario)

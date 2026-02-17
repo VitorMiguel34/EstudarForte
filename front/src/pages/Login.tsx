@@ -1,16 +1,10 @@
-import React,{useState , FormEvent} from 'react'
-import axios from 'axios'
+import React,{ useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-
-interface LoginData{
-  email: string,
-  password: string
-}
+import { type LoginData, loginUser } from '../service/api'
 
 export default function LoginForm(): React.JSX.Element {
-
-  const [loginData, setLoginData] = useState<LoginData>({email:"",password:""})
   const navigate = useNavigate()
+  const [loginData, setLoginData] = useState<LoginData>({email:"",password:""})
 
   function updateLoginData(e: React.ChangeEvent<HTMLInputElement>){
     setLoginData({
@@ -19,32 +13,20 @@ export default function LoginForm(): React.JSX.Element {
     })
   }
 
-  async function login( e : FormEvent){
-
+  async function handleSubmit(e: React.ChangeEvent<HTMLFormElement>){
     e.preventDefault()
 
-    const url = 'http://127.0.0.1:8000/token/'
-
-    const user : LoginData = {
-      email: loginData.email,
-      password: loginData.password
-    }
-
     try{
-
-      const response = await axios.post(url, user)
-      const token = response.data.access
+      const response = await loginUser(loginData)
+      const token = response.access
       localStorage.setItem('token', token)
-      //console.log(`O TOKEN : ${token}`)
       console.log(response)
       navigate('/tasks')
 
     } catch(error){
       alert('Verifique se a senha e o email estão corretos!')
       console.log(error)
-
     }
-
   }
 
   return (
@@ -59,7 +41,7 @@ export default function LoginForm(): React.JSX.Element {
           Log in to continue organizing your ideas.
         </p>
 
-        <form onSubmit={login} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-5">
           
           <div>
             <label className="text-sm text-zinc-400 block mb-2">

@@ -28,7 +28,6 @@ export async function registerUser(data: RegisterData) {
     const response = await api.post("/users/register/", data)
     return response.data
   } catch (error: any) {
-    alert("ERRO AQUI O!")
     if (error.response) {
       throw error.response.data
     }
@@ -38,7 +37,7 @@ export async function registerUser(data: RegisterData) {
 
 export async function loginUser(data: LoginData){
     try{
-        const response = await api.post("/token/",data)
+        const response = await api.post("/tokens/",data)
         return response.data
     }
     catch(error: any){

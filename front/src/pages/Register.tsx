@@ -1,69 +1,41 @@
 import React,{useState} from "react";
-import axios from 'axios'
 import { useNavigate } from "react-router-dom";
+import { type RegisterData, registerUser } from "../service/api";
 
-interface RegistrationData{
-    fullName: string,
-    email: string,
-    password: string,
-    confirmPassword: string
-}
+export default function RegisterPage(): React.JSX.Element {
+    const navigate = useNavigate()
 
-export default function RegistrationPage(): React.JSX.Element {
-    const registrationFieldsPlaceholders: RegistrationData = {
+    const registerFieldPlaceholders: RegisterData = {
         fullName:"Full name",
         email:"Email",
         password:"password",
         confirmPassword:"Confirm password"
     }
-    // what is this bro lmao
-    const registrationFields = Object.keys(registrationFieldsPlaceholders) as (keyof RegistrationData)[]
-
-    //state do form
-    const [registrationData, setRegistrationData] = useState<RegistrationData>({
+    const registrationFields = Object.keys(registerFieldPlaceholders) as (keyof RegisterData)[]
+    const [registerData, setRegisterData] = useState<RegisterData>({
         fullName:"",email:"",password:"",confirmPassword:""
     })
 
-    const navigate = useNavigate()
-
     function updateRegistrationData(e: React.ChangeEvent<HTMLInputElement>){
-        setRegistrationData(
-            {...registrationData, [e.target.name]: e.target.value}
+        setRegisterData(
+            {...registerData, [e.target.name]: e.target.value}
         )
     }
 
-    async function register_user(e : React.FormEvent){
-
-        //guuuuy what the gemini sang in this 'registrationFieldsPlaceholders' was kidness
-
+    async function handleSubmit(e: React.ChangeEvent<HTMLFormElement>){
             e.preventDefault()
-
-            if (registrationData.confirmPassword !== registrationData.password){
+            if (registerData.confirmPassword !== registerData.password){
                 alert('As senhas devem ser iguais!')
                 return
             }
-
-            const user = {
-                username: registrationData.fullName,
-                email : registrationData.email,
-                password : registrationData.password,
-            }
-
-            const url = 'http://127.0.0.1:8000/users/register/'
-
             try{
-                
-                const response = await axios.post(url, user)
+                const response = await registerUser(registerData)
                 console.log(response)
                 navigate('/login')
-
             }catch(error){
-
-                console.log('Erro ao cadastrar usuário')
+                alert('Erro ao cadastrar usuário')
                 console.log(error)
-
             }
-
     }
 
     return (
@@ -72,14 +44,14 @@ export default function RegistrationPage(): React.JSX.Element {
                 <h2 className="text-3xl font-extrabold text-center mb-2 text-white">Create Account</h2>
                 <p className="text-center text-gray-400 mb-8">Sign up to start organizing your ideas.</p>
 
-                <form onSubmit={register_user} className="space-y-5">
+                <form onSubmit={handleSubmit} className="space-y-5">
                 {registrationFields.map((field,idx) => (
                     <input
                     key={idx}
-                    type={registrationFieldsPlaceholders[field].toLowerCase().includes("password") ? "password" : "text"}
+                    type={registerFieldPlaceholders[field].toLowerCase().includes("password") ? "password" : "text"}
                     name={field}
-                    value={registrationData[field]}
-                    placeholder={registrationFieldsPlaceholders[field]}
+                    value={registerData[field]}
+                    placeholder={registerFieldPlaceholders[field]}
                     onChange={updateRegistrationData}
                     className="w-full p-4 rounded-xl bg-[#2a2a2a] text-white placeholder-gray-500 border border-[#2a2a2a] focus:border-pink-500 focus:ring-2 focus:ring-pink-500 focus:outline-none transition-all"
                     />

@@ -1,12 +1,7 @@
 from django.db import models
-<<<<<<< HEAD
-from django.contrib.auth.models import AbstractUser,BaseUserManager
-from django.conf import settings
-=======
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.conf import settings
 
->>>>>>> marques-branch
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:

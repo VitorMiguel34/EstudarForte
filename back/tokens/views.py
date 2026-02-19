@@ -60,7 +60,7 @@ class CookieTokenRefreshView(TokenRefreshView):
             httponly=True,
             secure=False,
             samesite="Lax",
-            max_age=15*60
+            max_age=15*60 #15 minutos
         )
 
         return res

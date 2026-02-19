@@ -11,6 +11,36 @@ const api: AxiosInstance = axios.create(
         withCredentials: true
     }
 )
+
+async function getNewAccessToken(){
+    try{
+        const response = await api.post("/tokens/refresh/")
+        return response
+    }
+    catch(error: any){
+        if(error.response){
+            throw error.response.data
+        }
+        throw new Error("Erro inesperado ao tentar conseguir novo access token")
+    }
+}
+
+api.interceptors.request.use((response) => {return response},
+    async (error) => {
+        try{
+            if(error.response?.status == 201){
+                getNewAccessToken()
+            }
+            else{
+                throw error
+            }
+        }
+        catch(axiosError: any){
+            throw axiosError.response.data
+        }
+    }
+)   
+
 export interface RegisterData{
     fullName: string,
     email: string,
@@ -24,15 +54,16 @@ export interface LoginData{
 }
 
 export async function registerUser(data: RegisterData) {
-  try {
-    const response = await api.post("/users/register/", data)
-    return response.data
-  } catch (error: any) {
-    if (error.response) {
-      throw error.response.data
+    try {
+        const response = await api.post("/users/register/", data)
+        return response.data
+    } 
+    catch (error: any) {
+        if (error.response) {
+            throw error.response.data
+        }
+        throw new Error("Erro inesperado ao tentar cadastrar usuário");
     }
-    throw new Error("Erro inesperado");
-  }
 }
 
 export async function loginUser(data: LoginData){
@@ -44,6 +75,6 @@ export async function loginUser(data: LoginData){
         if(error.response){
             throw error.response.data
         }
-        throw new Error("Erro inesperado")
+        throw new Error("Erro inesperado ao tentar logar usuário")
     }
 }

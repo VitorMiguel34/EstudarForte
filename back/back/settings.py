@@ -34,7 +34,7 @@ CSRF_TRUSTED_ORIGINS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'tokens.authentication.CookieJWTAuthentication',
     )
 }
 
@@ -57,7 +57,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'users',
-    'chatbot'
+    'chatbot',
+    'tokens'
 ]
 
 MIDDLEWARE = [

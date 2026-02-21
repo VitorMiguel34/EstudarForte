@@ -42,7 +42,7 @@ api.interceptors.request.use((response) => {return response},
 )   
 
 export interface RegisterData{
-    fullName: string,
+    name: string,
     email: string,
     password: string,
     confirmPassword: string,

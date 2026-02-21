@@ -78,3 +78,29 @@ export async function loginUser(data: LoginData){
         throw new Error("Erro inesperado ao tentar logar usuário")
     }
 }
+
+export async function logOut(){
+    try{
+        const response = await api.post('/tokens/logout/')
+        return response
+    }
+    catch(error: any){
+        if(error.response){
+            throw error.response.data
+        }
+        throw new Error("Erro inesperado ao tentar realizar logout")
+    }
+}
+
+export async function getIsAuthenticated(): Promise<boolean>{
+    try{
+        const response = await api.get("/tokens/me/")
+        return response.data["isAuthenticated"]
+    }
+    catch(error: any){
+        if(error.response){
+            throw error.response.data
+        }
+        throw new Error("Erro inesperado ao tentar verificar autenticação")
+    }
+}

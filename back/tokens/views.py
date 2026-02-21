@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from rest_framework_simplejwt.views import TokenObtainPairView,TokenRefreshView
+from rest_framework_simplejwt.tokens import AccessToken
+from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework.response import Response
 from rest_framework.status import HTTP_401_UNAUTHORIZED, HTTP_200_OK
 from rest_framework.views import APIView
@@ -66,8 +68,25 @@ class CookieTokenRefreshView(TokenRefreshView):
         return res
 
 class LogOutView(APIView):
-    def post(request):
+    def post(self,request):
         res = Response("Logout concluido")
         res.delete_cookie("access")
         res.delete_cookie("refresh")
         return res
+
+
+class IsAuthenticatedView(APIView):
+    def get(self,request):
+        IsAuthenticated = False
+        access = request.COOKIES.get("access")
+
+        if not access:
+            return Response({"isAuthenticated": False})
+        try:
+            AccessToken(access)
+            IsAuthenticated = True
+        except TokenError:
+            ...
+        
+        return Response({"isAuthenticated": IsAuthenticated})
+        

@@ -2,7 +2,11 @@ import React,{ useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { type LoginData, loginUser } from '../service/api'
 
-export default function LoginForm(): React.JSX.Element {
+interface LoginFormProps{
+  setIsAuthenticated: Function
+}
+
+export default function LoginForm({setIsAuthenticated}: LoginFormProps): React.JSX.Element {
   const navigate = useNavigate()
   const [loginData, setLoginData] = useState<LoginData>({email:"",password:""})
 
@@ -17,10 +21,8 @@ export default function LoginForm(): React.JSX.Element {
     e.preventDefault()
 
     try{
-      const response = await loginUser(loginData)
-      const token = response.access
-      localStorage.setItem('token', token)
-      console.log(response)
+      await loginUser(loginData)
+      setIsAuthenticated(true)
       navigate('/tasks')
 
     } catch(error){

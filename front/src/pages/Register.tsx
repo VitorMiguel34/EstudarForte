@@ -6,14 +6,14 @@ export default function RegisterPage(): React.JSX.Element {
     const navigate = useNavigate()
 
     const registerFieldPlaceholders: RegisterData = {
-        fullName:"Full name",
+        name:"Full name",
         email:"Email",
         password:"password",
         confirmPassword:"Confirm password"
     }
     const registrationFields = Object.keys(registerFieldPlaceholders) as (keyof RegisterData)[]
     const [registerData, setRegisterData] = useState<RegisterData>({
-        fullName:"",email:"",password:"",confirmPassword:""
+        name:"",email:"",password:"",confirmPassword:""
     })
 
     function updateRegistrationData(e: React.ChangeEvent<HTMLInputElement>){

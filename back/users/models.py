@@ -21,7 +21,7 @@ class UserManager(BaseUserManager):
 
 class User(AbstractUser):
     username = None 
-
+    name = models.CharField(max_length=200)
     email = models.EmailField(unique=True)
  
     USERNAME_FIELD = "email"
@@ -33,11 +33,11 @@ class User(AbstractUser):
         return self.email
 
 class Task(models.Model):
-    titulo = models.CharField(max_length=100)
-    descricao = models.TextField(max_length=500, blank=True)
-    data = models.DateField()
+    title = models.CharField(max_length=100)
+    description = models.TextField(max_length=500, blank=True)
+    date = models.DateField()
     status = models.BooleanField(default=False)
-    criador = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='tarefas')
+    creator = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='tasks')
 
     def __str__(self) -> str:
-        return self.titulo
+        return self.title

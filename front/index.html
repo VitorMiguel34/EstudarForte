@@ -1,13 +1,194 @@
 <!doctype html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>front</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StrongStudy</title>
+
+  <!-- Fonte -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Inter", sans-serif;
+    }
+
+    body {
+      background: #0b0b0f;
+      color: white;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 0 20px;
+    }
+
+    /* NAVBAR */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      border-bottom: 1px solid #1f1f2e;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 20px;
+      color: #a78bfa;
+    }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 120px 0 80px;
+    }
+
+    .hero h1 {
+      font-size: 56px;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    .hero span {
+      color: #a78bfa;
+    }
+
+    .hero p {
+      color: #9ca3af;
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      padding: 14px 28px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      margin: 6px;
+    }
+
+    .primary {
+      background: #7c3aed;
+      color: white;
+    }
+
+    .secondary {
+      background: transparent;
+      border: 1px solid #7c3aed;
+      color: #a78bfa;
+    }
+
+    /* FEATURES */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+      padding: 80px 0;
+    }
+
+    .card {
+      background: #111118;
+      padding: 24px;
+      border-radius: 16px;
+      border: 1px solid #1f1f2e;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      color: #a78bfa;
+    }
+
+    .card p {
+      color: #9ca3af;
+    }
+
+    /* CTA */
+    .cta {
+      text-align: center;
+      padding: 100px 0;
+      border-top: 1px solid #1f1f2e;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 0;
+      color: #777;
+      border-top: 1px solid #1f1f2e;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- NAVBAR -->
+    <nav>
+      <div class="logo">⚡ StrongStudy</div>
+      <div>
+        <button class="btn secondary">Log in</button>
+        <button class="btn primary">Start free</button>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+      <h1>
+        Organize your ideas <br>
+        <span>with elegance.</span>
+      </h1>
+
+      <p>
+        The modern workspace for notes, study plans and progress tracking.
+      </p>
+
+      <button class="btn primary">Start for free</button>
+      <button class="btn secondary">See demo</button>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features">
+      <div class="card">
+        <h3>📚 Smart Notes</h3>
+        <p>Organize subjects with tags and summaries.</p>
+      </div>
+
+      <div class="card">
+        <h3>📅 Study Planner</h3>
+        <p>Create automatic study schedules.</p>
+      </div>
+
+      <div class="card">
+        <h3>📊 Progress Tracking</h3>
+        <p>See your evolution with dashboards.</p>
+      </div>
+
+      <div class="card">
+        <h3>🤝 Collaboration</h3>
+        <p>Study with friends and share materials.</p>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+      <h2>Ready to study smarter?</h2>
+      <br>
+      <button class="btn primary">Create your account</button>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      © 2026 StrongStudy
+    </footer>
+
+  </div>
+
+</body>
 </html>

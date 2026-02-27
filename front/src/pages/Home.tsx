@@ -1,52 +1,91 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Home(): React.JSX.Element {
   return (
-    <div className="min-h-screen bg-[#050505] font-sans selection:bg-violet-500/30 selection:text-violet-400">
+    <div className="min-h-screen bg-[#050505] text-white font-sans">
 
-      <main className="pt-32 pb-16 overflow-hidden">
-        
-        <section data-aos="fade-down" className="relative mx-auto max-w-7xl px-6 lg:px-8 text-center flex flex-col items-center">
+      <main>
 
-          <h1 className="max-w-4xl text-5xl font-extrabold tracking-tight text-white sm:text-7xl mb-6 leading-[1.1]">
-            Your ideas, <br />
-            <span className="text-violet-500">organized with elegance.</span>
+        {/* HERO */}
+        <section className="text-center px-6 pt-28 pb-20">
+          <h1 className="text-5xl sm:text-7xl font-extrabold leading-tight mb-6">
+            Organize your ideas <br />
+            <span className="text-violet-500">with elegance.</span>
           </h1>
 
-          <p className="mt-4 max-w-2xl text-lg leading-8 text-gray-400">
-            The modern workspace for notes, docs, and team collaboration. Write, plan, and build together with your team.
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto mb-8">
+            The modern workspace for notes, study plans and progress tracking.
           </p>
-        </section>
-        
-        <section data-aos="fade-right" className="mx-auto mt-20 max-w-5xl px-6 pb-20">
-          <div className="relative overflow-hidden rounded-3xl bg-[#0F0F0F] border border-white/10 px-6 py-16 text-center shadow-2xl shadow-violet-900/10 sm:px-16">
-             
-             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-violet-600/10 blur-[80px] rounded-full pointer-events-none"></div>
 
-             <div className="relative z-10">
-                
-                <h2 className="mx-auto max-w-2xl text-3xl font-bold tracking-tight text-white sm:text-4xl">
-                  Ready to organize <br/>
-                  <span className="text-violet-500">your ideas?</span>
-                </h2>
-                
-                <p className="mx-auto mt-4 max-w-xl text-lg text-gray-400">
-                  Join thousands of teams that have transformed how they work. No credit card required, no strings attached.
-                </p>
+          <div className="flex justify-center gap-4">
+            <Link
+              to="/register"
+              className="px-6 py-3 rounded-lg bg-violet-600 hover:bg-violet-500 transition font-semibold"
+            >
+              Start for free
+            </Link>
 
-                <div className="mt-8 flex items-center justify-center gap-x-6">
-                  <Link to="/login" className="rounded-lg bg-violet-600 px-6 py-3 text-sm font-bold text-white hover:bg-violet-500 transition-all shadow-md shadow-violet-900/20">
-                    Log in
-                  </Link>
-                  <Link to="/register" className="rounded-lg border border-white/10 bg-white/5 px-6 py-3 text-sm font-semibold text-white hover:bg-white/10 transition-colors">
-                    Create account
-                  </Link>
-                </div>
-             </div>
+            <button className="px-6 py-3 rounded-lg border border-violet-500 text-violet-400 hover:bg-violet-500/10 transition">
+              See demo
+            </button>
           </div>
         </section>
+
+        {/* FEATURES */}
+        <section className="mx-auto max-w-7xl px-6 lg:px-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 pb-24">
+
+          <div className="bg-[#111118] p-6 rounded-2xl border border-white/10 hover:border-violet-500/30 transition">
+            <h3 className="text-violet-400 font-semibold mb-2">📚 Smart Notes</h3>
+            <p className="text-gray-400">
+              Organize subjects with tags and summaries.
+            </p>
+          </div>
+
+          <div className="bg-[#111118] p-6 rounded-2xl border border-white/10 hover:border-violet-500/30 transition">
+            <h3 className="text-violet-400 font-semibold mb-2">📅 Study Planner</h3>
+            <p className="text-gray-400">
+              Create automatic study schedules.
+            </p>
+          </div>
+
+          <div className="bg-[#111118] p-6 rounded-2xl border border-white/10 hover:border-violet-500/30 transition">
+            <h3 className="text-violet-400 font-semibold mb-2">📊 Progress Tracking</h3>
+            <p className="text-gray-400">
+              See your evolution with dashboards.
+            </p>
+          </div>
+
+          <div className="bg-[#111118] p-6 rounded-2xl border border-white/10 hover:border-violet-500/30 transition">
+            <h3 className="text-violet-400 font-semibold mb-2">🤝 Collaboration</h3>
+            <p className="text-gray-400">
+              Study with friends and share materials.
+            </p>
+          </div>
+
+        </section>
+
+        {/* CTA FINAL */}
+        <section className="text-center border-t border-white/10 py-24 px-6">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-6">
+            Ready to study smarter?
+          </h2>
+
+          <Link
+            to="/register"
+            className="px-8 py-3 rounded-lg bg-violet-600 hover:bg-violet-500 transition font-semibold"
+          >
+            Create your account
+          </Link>
+        </section>
+
       </main>
+
+      {/* FOOTER */}
+      <footer className="text-center py-10 border-t border-white/10 text-gray-500">
+        © 2026 StrongStudy
+      </footer>
+
     </div>
   );
-};
+}

@@ -21,7 +21,6 @@ export default function Tasks() {
 
             const response = await getUserTasks();
             setTasks(response);
-            console.log(response)
 
         } catch (err) {
             console.error("Erro ao carregar tarefas:", err);

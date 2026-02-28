@@ -72,7 +72,7 @@ export default function App() {
                       <Route path="login" element={<PrivateRoute condition={!isAuthenticated} redirectPage='/' children={<Login setIsAuthenticated={setIsAuthenticated}/>}/>}/>
                       <Route path="register" element={<Register />} />
                       <Route path="tasks" element={<PrivateRoute condition={isAuthenticated} redirectPage='/' children={<Tasks/>}/>}/>
-                      <Route path="user" element={<PrivateRoute condition={isAuthenticated} redirectPage="/login" children={<Profile user={user} setIsAuthenticated={setIsAuthenticated}/>}/>}/>
+                      <Route path="user" element={<PrivateRoute condition={isAuthenticated} redirectPage='/' children={<Profile user={user} setIsAuthenticated={setIsAuthenticated}/>}/>}/>
                   </Routes>
               </div>
           </div>

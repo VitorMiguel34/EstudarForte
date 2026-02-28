@@ -80,7 +80,6 @@ function LandingPage() {
 }
 
 export default function Home({ isAuthenticated, user }: HomeProps): React.JSX.Element {
-  console.log(user)
   const navigate = useNavigate();
 
   if (!isAuthenticated) return <LandingPage />;
@@ -88,7 +87,6 @@ export default function Home({ isAuthenticated, user }: HomeProps): React.JSX.El
   return (
     <div className="mr-10 w-full max-w-6xl mx-auto py-12 text-white">
 
-      {/* HERO LOGADO */}
       <div className="mb-14">
         <h1 className="text-4xl font-bold tracking-tight mb-3">
           Bem-vindo de volta, {user.name.split(" ")[0].toUpperCase()} 👋
@@ -98,7 +96,6 @@ export default function Home({ isAuthenticated, user }: HomeProps): React.JSX.El
         </p>
       </div>
 
-      {/* DASHBOARD CARDS */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 
         {/* PERFIL */}

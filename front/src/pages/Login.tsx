@@ -26,7 +26,7 @@ export default function LoginForm({setIsAuthenticated}: LoginFormProps): React.J
       navigate('/')
     } catch(error){
       alert('Verifique se a senha e o email estão corretos!')
-      console.log(error)
+      console.error(error)
     }
   }
 

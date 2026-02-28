@@ -29,12 +29,11 @@ export default function RegisterPage(): React.JSX.Element {
                 return
             }
             try{
-                const response = await registerUser(registerData)
-                console.log(response)
+                await registerUser(registerData)
                 navigate('/login')
             }catch(error){
                 alert('Erro ao cadastrar usuário')
-                console.log(error)
+                console.error(error)
             }
     }
 

@@ -17,17 +17,19 @@ class RegisterView(APIView):
             serializer.save()
             return Response({"mensagem":"cadastro concluido com sucesso"}, status=status.HTTP_200_OK)
         
-class UserViewSet(CreateAPIView):
-    queryset = User.objects.all()
+class UserViewSet(ModelViewSet):
     serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return User.objects.filter(id=self.request.user.id)
+
 class TaskViewSet(ModelViewSet):
-    #queryset = Task.objects.all()
     serializer_class = TaskSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        print(self.request.user)
-        return Task.objects.filter(criador=self.request.user)
+        return Task.objects.filter(creator=self.request.user)
     
     def perform_create(self, serializer):
-        serializer.save(criador=self.request.user)
+        serializer.save(creator=self.request.user)

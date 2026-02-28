@@ -1,9 +1,9 @@
 import React,{ useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { type LoginData, loginUser } from '../service/api'
+import { type LoginData, loginUser} from '../service/api'
 
 interface LoginFormProps{
-  setIsAuthenticated: Function
+  setIsAuthenticated: Function,
 }
 
 export default function LoginForm({setIsAuthenticated}: LoginFormProps): React.JSX.Element {
@@ -23,8 +23,7 @@ export default function LoginForm({setIsAuthenticated}: LoginFormProps): React.J
     try{
       await loginUser(loginData)
       setIsAuthenticated(true)
-      navigate('/tasks')
-
+      navigate('/')
     } catch(error){
       alert('Verifique se a senha e o email estão corretos!')
       console.log(error)

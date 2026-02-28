@@ -104,3 +104,29 @@ export async function getIsAuthenticated(): Promise<boolean>{
         throw new Error("Erro inesperado ao tentar verificar autenticação")
     }
 }
+
+export async function getUser(){
+    try{
+        const response = await api.get("/users/users/")
+        return response.data[0]
+    }
+    catch(error: any){
+        if(error.response){
+            throw error.response.data
+        }
+        throw new Error("Erro inesperado ao tentar acessar dados do usuário")
+    }
+}
+
+export async function getUserTasks(){
+    try{
+        const response = await api.get("/users/tasks/")
+        return response.data
+    }
+    catch(error: any){
+        if(error.response){
+            throw error.response.data
+        }
+        throw new Error("Erro inesperado ao tentar acessar tarefas do usuário")
+    }
+}

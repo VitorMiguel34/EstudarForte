@@ -1,50 +1,56 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { type RegisterData, registerUser } from "../service/api";
+import { registerUser } from "../service/api";
+import { type RegisterData } from "../service/interfaces";
 
 export default function RegisterPage(): React.JSX.Element {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const registerFieldPlaceholders: RegisterData = {
-        name:"Nome completo",
-        email:"E-mail",
-        password:"Senha",
-        confirmPassword:"Confirmar senha"
-    }
+        name: "Nome completo",
+        email: "E-mail",
+        password: "Senha",
+        confirmPassword: "Confirmar senha",
+    };
 
-    const registrationFields = Object.keys(registerFieldPlaceholders) as (keyof RegisterData)[]
-    
+    const registrationFields = Object.keys(
+        registerFieldPlaceholders,
+    ) as (keyof RegisterData)[];
+
     const [registerData, setRegisterData] = useState<RegisterData>({
-        name:"",email:"",password:"",confirmPassword:""
-    })
+        name: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+    });
 
-    function updateRegistrationData(e: React.ChangeEvent<HTMLInputElement>){
-        setRegisterData(
-            {...registerData, [e.target.name]: e.target.value}
-        )
+    function updateRegistrationData(e: React.ChangeEvent<HTMLInputElement>) {
+        setRegisterData({ ...registerData, [e.target.name]: e.target.value });
     }
 
-    async function handleSubmit(e: React.ChangeEvent<HTMLFormElement>){
-        e.preventDefault()
+    async function handleSubmit(e: React.ChangeEvent<HTMLFormElement>) {
+        e.preventDefault();
 
-        if (registerData.confirmPassword !== registerData.password){
-            alert('As senhas devem ser iguais!')
-            return
+        if (registerData.confirmPassword !== registerData.password) {
+            alert("As senhas devem ser iguais!");
+            return;
         }
 
-        try{
-            await registerUser(registerData)
-            navigate('/login')
-        }catch(error){
-            alert('Erro ao cadastrar usuário')
-            console.error(error)
+        try {
+            await registerUser(registerData);
+            navigate("/login");
+        } catch (error) {
+            alert("Erro ao cadastrar usuário");
+            console.error(error);
         }
     }
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-black">
-            <div data-aos="fade-down" className="bg-zinc-900/70 p-12 rounded-2xl w-full max-w-md mt-5">
-                
+            <div
+                data-aos="fade-down"
+                className="bg-zinc-900/70 p-12 rounded-2xl w-full max-w-md mt-5"
+            >
                 <h2 className="text-3xl font-extrabold text-center mb-2 text-white">
                     Criar conta
                 </h2>
@@ -54,10 +60,16 @@ export default function RegisterPage(): React.JSX.Element {
                 </p>
 
                 <form onSubmit={handleSubmit} className="space-y-5">
-                    {registrationFields.map((field,idx) => (
+                    {registrationFields.map((field, idx) => (
                         <input
                             key={idx}
-                            type={registerFieldPlaceholders[field].toLowerCase().includes("senha") ? "password" : "text"}
+                            type={
+                                registerFieldPlaceholders[field]
+                                    .toLowerCase()
+                                    .includes("senha")
+                                    ? "password"
+                                    : "text"
+                            }
                             name={field}
                             value={registerData[field]}
                             placeholder={registerFieldPlaceholders[field]}
@@ -77,12 +89,14 @@ export default function RegisterPage(): React.JSX.Element {
                 <div className="flex justify-center mt-6 text-sm text-gray-400">
                     <span>
                         Já tem uma conta?{" "}
-                        <a href="/login" className="text-pink-500 hover:underline">
+                        <a
+                            href="/login"
+                            className="text-pink-500 hover:underline"
+                        >
                             Entrar
                         </a>
                     </span>
                 </div>
-
             </div>
         </div>
     );

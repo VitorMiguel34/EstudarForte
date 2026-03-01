@@ -1,132 +1,139 @@
-import axios, { type AxiosInstance } from 'axios'
+import axios, { type AxiosInstance } from "axios";
+import { type RegisterData, type LoginData, type Task } from "./interfaces";
 
-const BASEURL: string = "http://localhost:8000"
-const api: AxiosInstance = axios.create(
-    {
-        baseURL:BASEURL,
-        timeout: 10000,
-        headers: {
-            "Content-Type": "application/json"
-        },
-        withCredentials: true
-    }
-)
+const BASEURL: string = "http://localhost:8000";
+const api: AxiosInstance = axios.create({
+    baseURL: BASEURL,
+    timeout: 10000,
+    headers: {
+        "Content-Type": "application/json",
+    },
+    withCredentials: true,
+});
 
-async function getNewAccessToken(){
-    try{
-        const response = await api.post("/tokens/refresh/")
-        return response
-    }
-    catch(error: any){
-        if(error.response){
-            throw error.response.data
+export async function getNewAccessToken() {
+    try {
+        const response = await api.post("/tokens/refresh/");
+        return response;
+    } catch (error: any) {
+        if (error.response) {
+            throw error.response.data;
         }
-        throw new Error("Erro inesperado ao tentar conseguir novo access token")
+        throw new Error(
+            "Erro inesperado ao tentar conseguir novo access token",
+        );
     }
 }
 
-api.interceptors.request.use((response) => {return response},
+api.interceptors.request.use(
+    (response) => {
+        return response;
+    },
     async (error) => {
-        try{
-            if(error.response?.status == 201){
-                getNewAccessToken()
+        try {
+            if (error.response?.status == 201) {
+                getNewAccessToken();
+            } else {
+                throw error;
             }
-            else{
-                throw error
-            }
+        } catch (axiosError: any) {
+            throw axiosError.response.data;
         }
-        catch(axiosError: any){
-            throw axiosError.response.data
-        }
-    }
-)   
-
-export interface RegisterData{
-    name: string,
-    email: string,
-    password: string,
-    confirmPassword: string,
-}
-
-export interface LoginData{
-    email: string,
-    password: string
-}
+    },
+);
 
 export async function registerUser(data: RegisterData) {
     try {
-        const response = await api.post("/users/register/", data)
-        return response.data
-    } 
-    catch (error: any) {
+        const response = await api.post("/users/register/", data);
+        return response.data;
+    } catch (error: any) {
         if (error.response) {
-            throw error.response.data
+            throw error.response.data;
         }
         throw new Error("Erro inesperado ao tentar cadastrar usuário");
     }
 }
 
-export async function loginUser(data: LoginData){
-    try{
-        const response = await api.post("/tokens/",data)
-        return response.data
-    }
-    catch(error: any){
-        if(error.response){
-            throw error.response.data
+export async function loginUser(data: LoginData) {
+    try {
+        const response = await api.post("/tokens/", data);
+        return response.data;
+    } catch (error: any) {
+        if (error.response) {
+            throw error.response.data;
         }
-        throw new Error("Erro inesperado ao tentar logar usuário")
+        throw new Error("Erro inesperado ao tentar logar usuário");
     }
 }
 
-export async function logOut(){
-    try{
-        const response = await api.post('/tokens/logout/')
-        return response
-    }
-    catch(error: any){
-        if(error.response){
-            throw error.response.data
+export async function logOut() {
+    try {
+        const response = await api.post("/tokens/logout/");
+        return response;
+    } catch (error: any) {
+        if (error.response) {
+            throw error.response.data;
         }
-        throw new Error("Erro inesperado ao tentar realizar logout")
+        throw new Error("Erro inesperado ao tentar realizar logout");
     }
 }
 
-export async function getIsAuthenticated(): Promise<boolean>{
-    try{
-        const response = await api.get("/tokens/me/")
-        return response.data["isAuthenticated"]
-    }
-    catch(error: any){
-        if(error.response){
-            throw error.response.data
+export async function getIsAuthenticated(): Promise<boolean> {
+    try {
+        const response = await api.get("/tokens/me/");
+        return response.data["isAuthenticated"];
+    } catch (error: any) {
+        if (error.response) {
+            throw error.response.data;
         }
-        throw new Error("Erro inesperado ao tentar verificar autenticação")
+        throw new Error("Erro inesperado ao tentar verificar autenticação");
     }
 }
 
-export async function getUser(){
-    try{
-        const response = await api.get("/users/users/")
-        return response.data[0]
-    }
-    catch(error: any){
-        if(error.response){
-            throw error.response.data
+export async function getUser() {
+    try {
+        const response = await api.get("/users/users/");
+        return response.data[0];
+    } catch (error: any) {
+        if (error.response) {
+            throw error.response.data;
         }
-        throw new Error("Erro inesperado ao tentar acessar dados do usuário")
+        throw new Error("Erro inesperado ao tentar acessar dados do usuário");
     }
 }
 
-export async function getUserTasks(){
-    try{
-        const response = await api.get("/users/tasks/")
-        return response.data
-    }
-    catch(error: any){
-        if(error.response){
-            throw error.response.data
+export async function getUserTasks() {
+    try {
+        const response = await api.get("/users/tasks/");
+        return response.data;
+    } catch (error: any) {
+        if (error.response) {
+            throw error.response.data;
         }
-        throw new Error("Erro inesperado ao tentar acessar tarefas do usuário")
+        throw new Error("Erro inesperado ao tentar acessar tarefas do usuário");
+    }
+}
+
+export async function postTask(task: Task) {
+    try {
+        const response = await api.post("/users/tasks/", task);
+        return response.data;
+    } catch (error: any) {
+        if (error.response) {
+            throw error.response.data;
+        }
+        throw new Error("Erro inesperado ao tentar criar nova tarefa");
+    }
+}
+
+export async function patchTask(task: Partial<Task>) {
+    try {
+        const response = await api.patch("/users/tasks/", task);
+        return response.data;
+    } catch (error: any) {
+        if (error.response) {
+            throw error.response.data;
+        }
+        throw new Error("Erro ao atualizar tarefa");
     }
 }

@@ -34,16 +34,25 @@ export default function Header(): React.JSX.Element {
           <div className="flex h-8 w-8 items-center justify-center rounded-full bg-violet-600 text-white">
             <Zap className="h-5 w-5 fill-white" />
           </div>
-          <Link to="/" className="text-xl font-bold text-white tracking-tight">StrongStudy</Link>
+          <Link to="/" className="text-xl font-bold text-white tracking-tight">
+            StrongStudy
+          </Link>
         </div>
 
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-4">
-          <Link to="/login" className="text-sm font-medium text-white hover:text-violet-400 transition-colors">
-            Log in
+          <Link 
+            to="/login" 
+            className="text-sm font-medium text-white hover:text-violet-400 transition-colors"
+          >
+            Entrar
           </Link>
-          <Link to="/register" className="rounded-lg bg-violet-600 px-5 py-2.5 text-sm font-bold text-white hover:bg-violet-500 transition-all">
-            Start for free
+
+          <Link 
+            to="/register" 
+            className="rounded-lg bg-violet-600 px-5 py-2.5 text-sm font-bold text-white hover:bg-violet-500 transition-all"
+          >
+            Começar grátis
           </Link>
         </div>
 
@@ -51,7 +60,7 @@ export default function Header(): React.JSX.Element {
         <button
           className="md:hidden text-white p-2 rounded-lg hover:bg-white/10 transition-colors"
           onClick={() => setMenuOpen((o) => !o)}
-          aria-label="Toggle menu"
+          aria-label="Alternar menu"
         >
           <span className="transition-transform duration-200 block">
             {menuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -71,14 +80,15 @@ export default function Header(): React.JSX.Element {
             onClick={() => setMenuOpen(false)}
             className="flex-1 rounded-lg border border-white/20 px-5 py-2.5 text-sm font-bold text-white hover:bg-white/10 transition-all text-center"
           >
-            Log in
+            Entrar
           </Link>
+
           <Link
             to="/register"
             onClick={() => setMenuOpen(false)}
             className="flex-1 rounded-lg bg-violet-600 px-5 py-2.5 text-sm font-bold text-white hover:bg-violet-500 transition-all text-center"
           >
-            Start for free
+            Começar grátis
           </Link>
         </div>
       </div>
